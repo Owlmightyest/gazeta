@@ -1,0 +1,52 @@
+import { useState } from "react";
+import { useInterectiveElement } from "../useInterectiveElement";
+
+export const useCreateButton = () => {
+  const [color, setColor] = useState("#000000");
+  const [width, setWidth] = useState(300);
+  const [height, setHeight] = useState(100);
+  const [borderRadius, setBorderRadius] = useState<number>(0);
+  const [stroke, setStroke] = useState<string>("#000000");
+  const [strokeWidth, setStrokeWidth] = useState<number>(0);
+  const [input, setInput] = useState("");
+  const [textColor, setTextColor] = useState("#000000");
+  const [fontSize, setFontSize] = useState(14);
+
+  const { changeInterective, changeLink, interective } =
+    useInterectiveElement();
+  const chageStrokeWidth = (s: string) => {
+    setStrokeWidth(+s);
+  };
+
+  const changeStroke = (s: string) => {
+    setStroke(s);
+  };
+
+  const changeBorderRadius = (s: string) => {
+    setBorderRadius(+s);
+  };
+
+  return {
+    color,
+    setColor,
+    width,
+    setWidth,
+    height,
+    setHeight,
+    borderRadius,
+    changeBorderRadius,
+    stroke,
+    changeStroke,
+    strokeWidth,
+    chageStrokeWidth,
+    interective,
+    changeInterective,
+    changeLink,
+    input,
+    setInput,
+    textColor,
+    setTextColor,
+    fontSize,
+    setFontSize,
+  };
+};
