@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   createNewButtonNode,
   createNewImage,
+  createNewSVGNode,
   createNewSquare,
   createNewTextNode,
 } from "./helpers";
@@ -19,11 +20,12 @@ export const useControlPannel = (id: string) => {
   };
 
   const createImage = async (
-    url: string,
-    interective: ChangePage | Link | Close | null
+    e: React.ChangeEvent<HTMLInputElement>,
+    bw?: boolean
   ) => {
+    if (!e.target.files) return;
     const img = new Image();
-    img.src = url;
+    img.src = URL.createObjectURL(e.target.files[0]);
     await new Promise((resolve) => (img.onload = resolve));
     const { src, width, height } = img;
     const node = createNewImage({
@@ -32,32 +34,35 @@ export const useControlPannel = (id: string) => {
       height: height / 3,
       x: 0,
       y: 0,
-      interective,
+      bw,
     });
 
-    dispatch(addNode({ node, id }));
+    dispatch(addNode({ node }));
   };
 
   const createText = ({
     color,
     input,
-    interective,
+
     fontSize,
+    fontStyle,
   }: {
     input: string;
     color: string;
-    interective: ChangePage | Link | Close | null;
+
     fontSize: number;
+    fontStyle: string;
   }) => {
     const node = createNewTextNode({
       text: input,
       x: 50,
       y: 10,
       fill: color,
-      interective,
+
       fontSize,
+      fontStyle,
     });
-    dispatch(addNode({ node, id }));
+    dispatch(addNode({ node }));
   };
 
   const createSquare = (obj: {
@@ -67,7 +72,6 @@ export const useControlPannel = (id: string) => {
     borderRadius?: number;
     stroke?: string;
     strokeWidth?: number;
-    interective: ChangePage | Link | Close | null;
   }) => {
     const { color, ...rest } = obj;
     const node = createNewSquare({
@@ -76,35 +80,14 @@ export const useControlPannel = (id: string) => {
       y: 100,
       ...rest,
     });
-    dispatch(addNode({ node, id }));
+    dispatch(addNode({ node }));
   };
-  const createButton = (obj: {
-    color: string;
-    width: number;
-    height: number;
-    borderRadius?: number;
-    stroke?: string;
-    strokeWidth?: number;
-    interective: ChangePage | Link | Close | null;
-    fontSize: number;
-    textColor: string;
-    text: string;
-  }) => {
-    const { color, ...rest } = obj;
-    const node = createNewButtonNode({
-      fill: color,
-      x: 300,
-      y: 100,
-      ...rest,
-    });
-    dispatch(addNode({ node, id }));
-  };
+
   return {
     mode,
     changeMode,
     createImage,
     createText,
     createSquare,
-    createButton,
   };
 };

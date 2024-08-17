@@ -1,14 +1,9 @@
-import { useState } from 'react';
-import { useInterectiveElement } from '../useInterectiveElement';
+import { useState } from "react";
+
 export const useCreateImage = () => {
-  const [url, setUrl] = useState('');
-  const { changeInterective, changeLink, interective } =
-    useInterectiveElement();
+  const [url, setUrl] = useState("");
 
   return {
-    changeInterective,
-    changeLink,
-    interective,
     url,
     setUrl,
   };

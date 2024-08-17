@@ -1,18 +1,23 @@
-import { ImageReduxStore } from './model';
+import { ImageReduxStore } from "./model";
 
 export const init: ImageReduxStore = {
-  pages: [
+  elements: [
     {
-      elements: [],
-      name: 'banner',
-    },
-    {
-      elements: [],
-      name: 'promo',
+      type: "image",
+      src: "/bg.jpg",
+      bw: false,
+      draggable: false,
+      height: 720,
+      width: 1280,
+      x: 0,
+      id: "ssssssssssss",
+      name: "ssss",
+      y: 0,
     },
   ],
-  selectedNode: '',
-  selectedName: 'banner',
+  selectedNode: "",
+  selectedName: "banner",
+  fonts: [],
 };
 
-export const prefix = 'imageStore';
+export const prefix = "imageStore";

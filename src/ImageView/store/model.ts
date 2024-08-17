@@ -1,14 +1,17 @@
-import { ImageNode, SquareNode, TextNode, ButtonNode } from "../../commonTypes";
+import {
+  ImageNode,
+  SquareNode,
+  TextNode,
+  ButtonNode,
+  SVGNode,
+  IFonts,
+} from "../../commonTypes";
 
 export interface ImageReduxStore {
-  pages: Page[];
+  elements: AllNodes[];
   selectedNode: string;
   selectedName: string;
+  fonts: IFonts[];
 }
 
-export type AllNodes = TextNode | ImageNode | SquareNode | ButtonNode;
-
-export interface Page {
-  elements: AllNodes[];
-  name: string;
-}
+export type AllNodes = TextNode | ImageNode | SquareNode | ButtonNode | SVGNode;

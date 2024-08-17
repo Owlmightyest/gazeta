@@ -1,39 +1,42 @@
-import { Box, Button, Input, Text } from '@chakra-ui/react';
-import { useCreateText } from './useCreateText';
-import { ColorInput, StringInput } from '../../shared/Inputs';
-import { InterectiveElementAccordeon } from '../interectiveElement';
-import { ChangePage, Close, Link } from 'src/commonTypes';
+import { Box, Button, Input, Select, Text } from "@chakra-ui/react";
+import { useCreateText } from "./useCreateText";
+import { ColorInput, StringInput } from "../../shared/Inputs";
+
+import { ChangePage, Close, Link } from "src/commonTypes";
+import { useNodeStore } from "src/ImageView/store/hook";
 export const CreateTextNode: React.FC<{
   createText: ({
     color,
     input,
-    interective,
+
     fontSize,
   }: {
     input: string;
     color: string;
-    interective: ChangePage | Link | Close | null;
+
     fontSize: number;
+    fontStyle: string;
   }) => void;
 }> = ({ createText }) => {
   const {
-    changeInterective,
-    changeLink,
     color,
     fontSize,
     input,
-    interective,
     setColor,
     setFontSize,
     setInput,
+    fontStyle,
+    setFontStyle,
   } = useCreateText();
+  const { fonts } = useNodeStore();
+
   return (
     <Box px={5}>
-      <Box display={'flex'}>
+      <Box display={"flex"}>
         <Text>Текст</Text>
         <Input value={input} onChange={(e) => setInput(e.target.value)} />
       </Box>
-      <Box display={'flex'}>
+      <Box display={"flex"}>
         <ColorInput
           value={color}
           onValueChange={(s) => setColor(s)}
@@ -45,19 +48,8 @@ export const CreateTextNode: React.FC<{
           text="Размер шрифта"
         />
       </Box>
-      <InterectiveElementAccordeon
-        changeElement={changeInterective}
-        changeLink={changeLink}
-        interectiveElement={interective}
-        link={
-          interective && interective.type !== 'close' && interective.link
-            ? interective.link
-            : undefined
-        }
-      />
-      <Button
-        onClick={() => createText({ color, input, interective, fontSize })}
-      >
+
+      <Button onClick={() => createText({ color, input, fontSize, fontStyle })}>
         Создать текст
       </Button>
     </Box>

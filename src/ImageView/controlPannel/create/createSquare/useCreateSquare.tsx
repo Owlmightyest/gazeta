@@ -1,16 +1,13 @@
-import { useState } from 'react';
-import { useInterectiveElement } from '../useInterectiveElement';
+import { useState } from "react";
 
 export const useCreateSquare = () => {
-  const [color, setColor] = useState('#000000');
+  const [color, setColor] = useState("#000000");
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(100);
   const [borderRadius, setBorderRadius] = useState<number>(0);
-  const [stroke, setStroke] = useState<string>('#000000');
+  const [stroke, setStroke] = useState<string>("#000000");
   const [strokeWidth, setStrokeWidth] = useState<number>(0);
 
-  const { changeInterective, changeLink, interective } =
-    useInterectiveElement();
   const chageStrokeWidth = (s: string) => {
     setStrokeWidth(+s);
   };
@@ -36,8 +33,5 @@ export const useCreateSquare = () => {
     changeStroke,
     strokeWidth,
     chageStrokeWidth,
-    interective,
-    changeInterective,
-    changeLink,
   };
 };

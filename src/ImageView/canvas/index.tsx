@@ -1,21 +1,21 @@
-import { useRef } from 'react';
-import { Stage, Layer } from 'react-konva';
-import { useNodeStore } from '../store/hook';
-import { DispatchElement } from './nodes';
-import { useDispatch } from 'react-redux';
-import { AllNodes } from '../store/model';
-import { chanageNode, changeSelectedNode } from '../store/action';
+import { useRef } from "react";
+import { Stage, Layer } from "react-konva";
+import { useNodeStore } from "../store/hook";
+import { DispatchElement } from "./nodes";
+import { useDispatch } from "react-redux";
+import { AllNodes } from "../store/model";
+import { chanageNode, changeSelectedNode } from "../store/action";
 
 export const Canvas: React.FC<{
   width: number;
   heigth: number;
-}> = ({ width, heigth }) => {
-  const stage = useRef<any>();
-  const { selectedScreen, selectedNode, selectedName } = useNodeStore();
+  stageRef: React.MutableRefObject<any>;
+}> = ({ width, heigth, stageRef }) => {
+  const { elements, selectedNode, selectedName } = useNodeStore();
   const dispatch = useDispatch();
 
   const changeNodeWrapper = (n: AllNodes) => {
-    dispatch(chanageNode({ id: selectedName, node: n }));
+    dispatch(chanageNode({ node: n }));
   };
 
   const changeSelectedEl = (s: string) => {
@@ -26,30 +26,29 @@ export const Canvas: React.FC<{
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
-      changeSelectedEl('');
+      changeSelectedEl("");
     }
   };
   return (
     <Stage
-      ref={stage}
+      ref={stageRef}
       width={width}
       height={heigth}
-      style={{ border: '1px solid grey', width: 640 }}
+      style={{ border: "1px solid grey", width: width }}
       onMouseDown={checkDeselect}
       onTouchStart={checkDeselect}
     >
       <Layer>
-        {selectedScreen &&
-          selectedScreen.elements.map((x, i) => (
-            <DispatchElement
-              el={x}
-              index={i}
-              onChange={changeNodeWrapper}
-              onSelect={changeSelectedEl}
-              owidth={width}
-              selectedEl={selectedNode}
-            />
-          ))}
+        {elements.map((x, i) => (
+          <DispatchElement
+            el={x}
+            index={i}
+            onChange={changeNodeWrapper}
+            onSelect={changeSelectedEl}
+            owidth={width}
+            selectedEl={selectedNode}
+          />
+        ))}
       </Layer>
     </Stage>
   );

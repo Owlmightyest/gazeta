@@ -1,46 +1,38 @@
-import { Box, Switch, Input, Stack, Text } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
-import { TextNode } from 'src/commonTypes';
-import { chanageNode } from 'src/ImageView/store/action';
-import { useInterectiveElement } from '../create/useInterectiveElement';
-import { useTextNode } from './useTextNode';
-import { InterectiveElementAccordeon } from '../create/interectiveElement';
+import { Box, Switch, Input, Stack, Text, Button } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { TextNode } from "src/commonTypes";
+import { chanageNode, deleteNode } from "src/ImageView/store/action";
+
+import { useTextNode } from "./useTextNode";
 
 export const TextNodeListElement: React.FC<{
   node: TextNode;
   i: number;
-  screenId: string;
-}> = ({ node, i, screenId }) => {
-  const {
-    text,
-    fill,
-    editable,
-    fontSize,
-    interective: interectiveElement,
-  } = node;
+}> = ({ node, i }) => {
+  const { text, fill, editable, fontSize } = node;
+  const dispatch = useDispatch();
 
   const {
     changeColor,
     changeEditable,
     changeFontSize,
-    changeInterective,
-    changeLink,
+
     changeText,
-  } = useTextNode(node, screenId);
+  } = useTextNode(node);
   return (
     <Stack padding={4} border="1px" borderColor="gray.200">
       <Input
-        backgroundColor={'white'}
+        backgroundColor={"white"}
         value={text}
         color={fill}
         onChange={(e) => changeText(e.target.value)}
       />
 
       <Box
-        display={'flex'}
+        display={"flex"}
         gap={5}
-        justifyContent={'center'}
-        alignItems={'center'}
+        justifyContent={"center"}
+        alignItems={"center"}
       >
         <input
           type="color"
@@ -52,17 +44,14 @@ export const TextNodeListElement: React.FC<{
           onChange={(e) => changeFontSize(e.target.value)}
           width={150}
         />
-        <Box display={'flex'}>
+        <Box display={"flex"}>
           <Text>Редактировать текст</Text>
           <Switch isChecked={editable} onChange={changeEditable} />
         </Box>
+        <Button onClick={() => dispatch(deleteNode({ nodeId: node.id }))}>
+          Удалить
+        </Button>
       </Box>
-
-      <InterectiveElementAccordeon
-        interectiveElement={interectiveElement}
-        changeElement={changeInterective}
-        changeLink={changeLink}
-      />
     </Stack>
   );
 };

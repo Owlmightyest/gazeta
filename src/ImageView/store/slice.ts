@@ -6,56 +6,44 @@ import {
   chanageNode,
   deleteNode,
   changeSelectedNode,
-  selectScreen,
-  addNewScreen,
+  changeOrder,
 } from "./action";
 export const ImageSlice = createReducer<ImageReduxStore>(init, (builder) => {
   builder.addCase(addNode, (reducerState, action) => {
-    const { node, id } = action.payload;
-    reducerState.pages = reducerState.pages.map((x) => {
-      if (x.name === id) {
-        x.elements = [...x.elements, node];
-      }
-      return x;
-    });
+    const { node } = action.payload;
+    reducerState.elements = [...reducerState.elements, node];
   });
   builder.addCase(chanageNode, (reducerState, action) => {
-    const { id, node } = action.payload;
-    console.log(node, id);
-    const newState = reducerState.pages.map((x) => {
-      if (x.name === id)
-        return {
-          name: x.name,
-          elements: x.elements.map((y) => {
-            if (y.id === node.id) {
-              y = node;
-            }
-            return y;
-          }),
-        };
+    const { node } = action.payload;
+    console.log(node);
+    const newState = reducerState.elements.map((x) => {
+      if (x.id === node.id) return node;
 
       return x;
     });
-    reducerState.pages = newState;
+    reducerState.elements = newState;
   });
   builder.addCase(deleteNode, (reducerState, action) => {
-    const { nodeId, screenId } = action.payload;
-    reducerState.pages = reducerState.pages.map((x) => {
-      if (x.name === screenId)
-        return {
-          name: x.name,
-          elements: x.elements.filter((y) => y.id !== nodeId),
-        };
-      return x;
-    });
+    const { nodeId } = action.payload;
+    reducerState.elements = reducerState.elements.filter(
+      (x) => x.id !== nodeId
+    );
   });
   builder.addCase(changeSelectedNode, (reducerState, action) => {
     reducerState.selectedNode = action.payload;
   });
-  builder.addCase(selectScreen, (reducerState, action) => {
-    reducerState.selectedName = action.payload;
-  });
-  builder.addCase(addNewScreen, (reducerState, action) => {
-    reducerState.pages = [...reducerState.pages, action.payload];
+  builder.addCase(changeOrder, (reducerState, action) => {
+    let { n1, n2 } = action.payload;
+    if (!n2) {
+      n2 = reducerState.elements.length - 1;
+    }
+    const el1 = reducerState.elements[n1];
+    const el2 = reducerState.elements[n2];
+
+    reducerState.elements = reducerState.elements.map((y: any, i: number) => {
+      if (i === n1) return el1;
+      if (i === n2) return el2;
+      return y;
+    });
   });
 });

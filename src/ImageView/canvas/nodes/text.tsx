@@ -15,7 +15,20 @@ export const TextNode: React.FC<{
   el: Type;
 }> = ({ owidth, onSelect, onChange, selected, el, index }) => {
   const mult = owidth / originWidth;
-  const { name, type, x, y, width, height, editable, fontSize, ...rest } = el;
+  const {
+    name,
+    type,
+    x,
+    y,
+    width,
+    height,
+    editable,
+    fontSize,
+    text,
+    id,
+    fontStyle,
+    ...rest
+  } = el;
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
   useEffect(() => {
@@ -55,8 +68,11 @@ export const TextNode: React.FC<{
       )}
       {!editable && (
         <Text
+          id={id}
+          text={text}
           ref={shapeRef}
           zIndex={index}
+          fontFamily={fontStyle}
           onClick={() => onSelect(el.id)}
           onTap={() => onSelect(el.id)}
           width={width * mult}

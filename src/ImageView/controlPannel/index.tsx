@@ -9,34 +9,23 @@ import { ImageNodeListElement } from "./nodeList/imageNode";
 import { SquareNodeListElement } from "./nodeList/squareNode";
 import { TextNodeListElement } from "./nodeList/textNode";
 import { useDispatch } from "react-redux";
-import { selectScreen } from "../store/action";
-import { CreateButton } from "./create/createButton";
-import { ButtonNodeListElement } from "./nodeList/buttonNode";
 
-const options: NodeTypes[] = ["image", "square", "text", "button"];
+const options: NodeTypes[] = ["image", "square", "text"];
 
 export const Controlls: React.FC = () => {
-  const { selectedScreen, pages, selectedName } = useNodeStore();
+  const { selectedName, elements } = useNodeStore();
   const dispatch = useDispatch();
   const {
     changeMode,
     createImage,
     createSquare,
     createText,
-    createButton,
+
     mode,
   } = useControlPannel(selectedName);
 
   return (
     <Box w={[600, 700, 800]}>
-      <Select
-        value={selectedName}
-        onChange={(e) => dispatch(selectScreen(e.target.value))}
-      >
-        {pages.map((page) => (
-          <option>{page.name}</option>
-        ))}
-      </Select>
       <Select
         value={mode}
         onChange={(e) => changeMode(e.target.value as NodeTypes)}
@@ -50,39 +39,29 @@ export const Controlls: React.FC = () => {
       {mode === "image" && <CreateImageNode createImage={createImage} />}
       {mode === "square" && <CreateDivNode createSquare={createSquare} />}
       {mode === "text" && <CreateTextNode createText={createText} />}
-      {mode === "button" && <CreateButton createButton={createButton} />}
-      {selectedScreen &&
-        selectedScreen.elements.map((el, i) => (
-          <>
-            {el.type === "image" && (
-              <ImageNodeListElement key={`nodeList${i}`} i={i} node={el} />
-            )}
-            {el.type === "square" && (
-              <SquareNodeListElement
-                key={`nodeList${i}`}
-                i={i}
-                node={el}
-                screenId={selectedScreen.name}
-              />
-            )}
-            {el.type === "text" && (
-              <TextNodeListElement
-                key={`nodeList${i}`}
-                i={i}
-                node={el}
-                screenId={selectedScreen.name}
-              />
-            )}
-            {el.type === "button" && (
-              <ButtonNodeListElement
-                key={`nodeList${i}`}
-                i={i}
-                node={el}
-                screenId={selectedScreen.name}
-              />
-            )}
-          </>
-        ))}
+      {elements.map((el, i) => (
+        <>
+          {el.type === "image" && (
+            <ImageNodeListElement
+              key={`nodeList${i}`}
+              i={i}
+              node={el}
+              maxIndex={elements.length - 1}
+            />
+          )}
+          {el.type === "square" && (
+            <SquareNodeListElement
+              key={`nodeList${i}`}
+              i={i}
+              node={el}
+              maxIndex={elements.length - 1}
+            />
+          )}
+          {el.type === "text" && (
+            <TextNodeListElement key={`nodeList${i}`} i={i} node={el} />
+          )}
+        </>
+      ))}
     </Box>
   );
 };

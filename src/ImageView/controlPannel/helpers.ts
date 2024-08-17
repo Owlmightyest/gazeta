@@ -6,23 +6,51 @@ import {
   SquareNode,
   TextNode,
   ButtonNode,
+  SVGNode,
 } from "../../commonTypes";
 import { v4 as uuidv4 } from "uuid";
+
+export const createNewSVGNode = ({
+  height,
+  src,
+  width,
+  x,
+  y,
+}: {
+  x: number;
+  y: number;
+  src: string;
+  width: number;
+  height: number;
+}): SVGNode => {
+  return {
+    x,
+    y,
+    src,
+    width,
+    height,
+    draggable: true,
+    id: uuidv4(),
+    type: "svg",
+    name: "Новый рисунок",
+  };
+};
 
 export const createNewTextNode = ({
   x,
   y,
   text,
   fill,
-  interective,
   fontSize,
+  fontStyle,
 }: {
   x: number;
   y: number;
   text: string;
   fill: string;
   fontSize: number;
-  interective: ChangePage | Link | Close | null;
+
+  fontStyle: string;
 }): TextNode => {
   return {
     x,
@@ -36,8 +64,9 @@ export const createNewTextNode = ({
     id: uuidv4(),
     type: "text",
     name: "Новый текст",
-    interective,
+
     editable: false,
+    fontStyle,
   };
 };
 
@@ -47,14 +76,14 @@ export const createNewImage = ({
   width,
   x,
   y,
-  interective,
+  bw,
 }: {
   x: number;
   y: number;
   src: string;
   width: number;
   height: number;
-  interective: ChangePage | Link | Close | null;
+  bw?: boolean;
 }): ImageNode => ({
   x,
   y,
@@ -65,7 +94,7 @@ export const createNewImage = ({
   id: uuidv4(),
   type: "image",
   name: "Новый рисунок",
-  interective,
+  bw: bw ?? false,
 });
 
 export const createNewSquare = ({
@@ -77,7 +106,6 @@ export const createNewSquare = ({
   borderRadius,
   stroke,
   strokeWidth,
-  interective,
 }: {
   x: number;
   y: number;
@@ -87,7 +115,6 @@ export const createNewSquare = ({
   borderRadius?: number;
   stroke?: string;
   strokeWidth?: number;
-  interective: ChangePage | Link | Close | null;
 }): SquareNode => ({
   x,
   y,
@@ -101,14 +128,13 @@ export const createNewSquare = ({
   borderRadius,
   stroke,
   strokeWidth,
-  interective,
 });
 
 export const createNewButtonNode = ({
   fill,
   fontSize,
   height,
-  interective,
+
   text,
   textColor,
   width,
@@ -117,6 +143,7 @@ export const createNewButtonNode = ({
   borderRadius,
   stroke,
   strokeWidth,
+  fontStyle,
 }: {
   x: number;
   y: number;
@@ -129,7 +156,8 @@ export const createNewButtonNode = ({
   text: string;
   fontSize: number;
   textColor: string;
-  interective: ChangePage | Link | Close | null;
+
+  fontStyle: string;
 }): ButtonNode => ({
   x,
   y,
@@ -139,7 +167,7 @@ export const createNewButtonNode = ({
   fontSize,
   text,
   textColor,
-  interective,
+
   borderRadius,
   stroke,
   strokeWidth,
@@ -148,4 +176,5 @@ export const createNewButtonNode = ({
   editable: false,
   name: "Кнопко",
   type: "button",
+  fontStyle,
 });

@@ -3,10 +3,12 @@ import { useEffect, useRef } from "react";
 import { Transformer, Image } from "react-konva";
 import { originWidth } from "src/CONST";
 import { AllNodes } from "src/ImageView/store/model";
-import { ImageNode as Type } from "src/commonTypes";
-import Konva from "konva";
+import { SVGNode as Type } from "src/commonTypes";
+import cross1 from "src/assets/svg/cross1.svg";
+import cross2 from "src/assets/svg/cross2.svg";
+import cross3 from "src/assets/svg/cross3.svg";
 
-export const ImageNode: React.FC<{
+export const SVGNode: React.FC<{
   owidth: number;
   selected: boolean;
   onSelect: (s: string) => void;
@@ -15,11 +17,15 @@ export const ImageNode: React.FC<{
   el: Type;
 }> = ({ owidth, onSelect, onChange, selected, el, index }) => {
   const mult = owidth / originWidth;
-  const { name, type, x, y, width, height, bw, ...rest } = el;
-
+  const { name, type, x, y, width, height, ...rest } = el;
   const shapeRef = useRef<any>();
-
   const trRef = useRef<any>();
+  let i1 = cross1;
+  if (el.src === "type2") {
+    i1 = cross2;
+  } else if (el.src === "type3") {
+    i1 = cross3;
+  }
   useEffect(() => {
     if (selected) {
       // we need to attach transformer manually
@@ -36,8 +42,8 @@ export const ImageNode: React.FC<{
       y: node.y() / mult,
     });
   };
-  const [img] = useImage(el.src);
 
+  const [img] = useImage(i1);
   return (
     <>
       <Image
@@ -51,6 +57,10 @@ export const ImageNode: React.FC<{
         x={x * mult}
         y={y * mult}
         onTransformEnd={() => {
+          // transformer is changing scale of the node
+          // and NOT its width or height
+          // but in the store we have only width and height
+          // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
@@ -62,8 +72,9 @@ export const ImageNode: React.FC<{
             ...el,
             x: node.x() / mult,
             y: node.y() / mult,
-            width: Math.max(5, (node.width() * scaleX) / mult),
-            height: Math.max((node.height() * scaleY) / mult),
+            // set minimal value
+            width: Math.max(5, node.width() * scaleX) / mult,
+            height: Math.max(node.height() * scaleY) / mult,
           });
         }}
         onDragEnd={updateShape}

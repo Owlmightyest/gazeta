@@ -1,8 +1,8 @@
 import { AllNodes } from "src/ImageView/store/model";
 import { ImageNode } from "./image";
-import { SquareNode } from "./square";
+import { SquareNode } from "./square"
+import Konva from 'konva';;
 import { TextNode } from "./text";
-import { ButtonNode } from "./button";
 
 export const DispatchElement: React.FC<{
   el: AllNodes;
@@ -24,6 +24,7 @@ export const DispatchElement: React.FC<{
           index={index}
         />
       )}
+
       {el.type === "square" && (
         <SquareNode
           onChange={onChange}
@@ -36,16 +37,6 @@ export const DispatchElement: React.FC<{
       )}
       {el.type === "text" && (
         <TextNode
-          onChange={onChange}
-          onSelect={onSelect}
-          owidth={owidth}
-          selected={selectedEl === el.id}
-          el={el}
-          index={index}
-        />
-      )}
-      {el.type === "button" && (
-        <ButtonNode
           onChange={onChange}
           onSelect={onSelect}
           owidth={owidth}

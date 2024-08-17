@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+@font-face {
+  font-family: "snowstorm";
+  src: url("./assets/fonts/snowstorm_black-webfont.woff2") format("woff2"),
+    url("./assets/fonts/snowstorm_black-webfont.woff") format("woff")
+      url("./assets/fonts/Snowstorm_Black.otf") format("opentype");
+}
+@font-face {
+  font-family: "buran";
+  src: url("./assets/fonts/Buran USSR.ttf") format("truetype");
+}

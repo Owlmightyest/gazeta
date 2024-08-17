@@ -8,7 +8,6 @@ export interface CommonNode {
   draggable: boolean;
   id: string;
   name: string;
-  interective: ChangePage | Link | Close | null;
 }
 
 export type InterectiveElement = "changePage" | "link" | "close";
@@ -30,11 +29,18 @@ export interface TextNode extends CommonNode {
   fill: string;
   text: string;
   editable: boolean;
+  fontStyle: string;
 }
 
 export interface ImageNode extends CommonNode {
   src: string;
   type: "image";
+  bw: boolean;
+}
+
+export interface SVGNode extends CommonNode {
+  src: string;
+  type: "svg";
 }
 
 export interface SquareNode extends CommonNode {
@@ -51,8 +57,14 @@ export interface ButtonNode
   type: "button";
   textColor: string;
 }
-export type NodeTypes = "text" | "image" | "square" | "button";
+export type NodeTypes = "text" | "image" | "square" | "button" | "svg";
 
 export interface IReduxStore {
   images: ImageReduxStore;
+}
+
+export interface IFonts {
+  name: string;
+  woff2: string;
+  woff: string;
 }

@@ -1,9 +1,8 @@
-import { Box, Button, Input, Text } from '@chakra-ui/react';
-import { useState } from 'react';
-import { ColorInput, StringInput } from '../../shared/Inputs';
-import { useCreateSquare } from './useCreateSquare';
-import { InterectiveElementAccordeon } from '../interectiveElement';
-import { ChangePage, Close, Link } from 'src/commonTypes';
+import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { ColorInput, StringInput } from "../../shared/Inputs";
+import { useCreateSquare } from "./useCreateSquare";
+import { ChangePage, Close, Link } from "src/commonTypes";
 export const CreateDivNode: React.FC<{
   createSquare: (obj: {
     color: string;
@@ -12,17 +11,16 @@ export const CreateDivNode: React.FC<{
     borderRadius?: number;
     stroke?: string;
     strokeWidth?: number;
-    interective: ChangePage | Link | Close | null;
   }) => void;
 }> = ({ createSquare }) => {
   const {
     borderRadius,
     chageStrokeWidth,
-    interective,
+
     changeBorderRadius,
-    changeLink,
+
     changeStroke,
-    changeInterective,
+
     color,
     height,
     setColor,
@@ -36,9 +34,9 @@ export const CreateDivNode: React.FC<{
   return (
     <>
       <Box
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
         gap={5}
         px={5}
       >
@@ -78,18 +76,7 @@ export const CreateDivNode: React.FC<{
           />
         </Box>
       </Box>
-      <Box>
-        <InterectiveElementAccordeon
-          changeElement={changeInterective}
-          changeLink={changeLink}
-          interectiveElement={interective}
-          link={
-            interective && interective.type !== 'close' && interective.link
-              ? interective.link
-              : undefined
-          }
-        />
-      </Box>
+      <Box></Box>
       <Button
         onClick={() =>
           createSquare({
@@ -99,7 +86,6 @@ export const CreateDivNode: React.FC<{
             borderRadius,
             stroke,
             strokeWidth,
-            interective,
           })
         }
       >

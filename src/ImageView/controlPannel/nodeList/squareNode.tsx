@@ -1,36 +1,28 @@
-import { Box, Text, Stack, Input } from '@chakra-ui/react';
-import { SquareNode } from 'src/commonTypes';
-import { useSquareNode } from './useSquareNode';
-import { InterectiveElementAccordeon } from '../create/interectiveElement';
+import { Box, Text, Stack, Input, Button } from "@chakra-ui/react";
+import { SquareNode } from "src/commonTypes";
+import { useSquareNode } from "./useSquareNode";
+import { useDispatch } from "react-redux";
+import { changeOrder, deleteNode } from "src/ImageView/store/action";
 
 export const SquareNodeListElement: React.FC<{
   node: SquareNode;
   i: number;
-  screenId: string;
-}> = ({ node, i, screenId }) => {
-  const {
-    name,
-    fill,
-    stroke,
-    strokeWidth,
-    borderRadius,
-    x,
-    y,
-    width,
-    height,
-    interective,
-  } = node;
+  maxIndex: number;
+}> = ({ node, i, maxIndex }) => {
+  const { name, fill, stroke, strokeWidth, borderRadius, x, y, width, height } =
+    node;
+  const dispatch = useDispatch();
+
   const {
     changeBorderRadius,
     changeColor,
-    changeInterective,
-    changeLink,
+
     changeStrokeColor,
     changeStrokeWidth,
-  } = useSquareNode(node, screenId);
+  } = useSquareNode(node);
   return (
     <Stack padding={4} border="1px" borderColor="gray.200">
-      <Box display={'flex'}>
+      <Box display={"flex"}>
         <Box>
           <Text>Радиус</Text>
           <Input
@@ -64,11 +56,11 @@ export const SquareNodeListElement: React.FC<{
           />
         </Box>
       </Box>
-      <InterectiveElementAccordeon
-        changeElement={changeInterective}
-        interectiveElement={interective}
-        changeLink={changeLink}
-      />
+      <Box>
+        <Button onClick={() => dispatch(deleteNode({ nodeId: node.id }))}>
+          Удалить
+        </Button>
+      </Box>
     </Stack>
   );
 };

@@ -1,21 +1,14 @@
-import {
-  SquareNode,
-  ChangePage,
-  Close,
-  InterectiveElement,
-  Link,
-} from 'src/commonTypes';
-import { chanageNode } from 'src/ImageView/store/action';
-import { useDispatch } from 'react-redux';
-import { useNodeStore } from 'src/ImageView/store/hook';
+import { SquareNode } from "src/commonTypes";
+import { chanageNode } from "src/ImageView/store/action";
+import { useDispatch } from "react-redux";
+import { useNodeStore } from "src/ImageView/store/hook";
 
-export const useSquareNode = (node: SquareNode, id: string) => {
-  const { interective } = node;
-  const { pages, selectedName } = useNodeStore();
+export const useSquareNode = (node: SquareNode) => {
+  const { selectedName } = useNodeStore();
   const dispatch = useDispatch();
 
   const changeNodeWrapper = (node: SquareNode) => {
-    dispatch(chanageNode({ node, id }));
+    dispatch(chanageNode({ node }));
   };
 
   const changeColor = (s: string) => {
@@ -32,40 +25,7 @@ export const useSquareNode = (node: SquareNode, id: string) => {
     changeNodeWrapper({ ...node, strokeWidth: +w });
   };
 
-  const changeInterective = (i: InterectiveElement | null) => {
-    let interective: ChangePage | Close | Link | null = null;
-    // if (!i) {
-    //   chanageNode({ node: { ...node, interective }, id: screenId });
-    //   return;
-    // }
-    switch (i) {
-      case null:
-        break;
-      case 'changePage':
-        interective = {
-          link: pages.find((x) => x.name !== selectedName)?.name ?? '',
-          type: 'changePage',
-        } as ChangePage;
-        break;
-      case 'close':
-        interective = {
-          type: 'close',
-        };
-        break;
-      case 'link':
-        interective = { type: 'link', link: '' };
-    }
-    dispatch(chanageNode({ node: { ...node, interective }, id }));
-  };
-  const changeLink = (l: string) => {
-    if (!interective || (interective && interective.type === 'close')) return;
-    const newInterective = interective;
-    newInterective.link = l;
-    changeNodeWrapper({ ...node, interective: newInterective });
-  };
   return {
-    changeLink,
-    changeInterective,
     changeBorderRadius,
     changeStrokeWidth,
     changeStrokeColor,

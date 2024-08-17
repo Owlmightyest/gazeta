@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { useInterectiveElement } from '../useInterectiveElement';
+import { useState } from "react";
 
 export const useCreateText = () => {
-  const [input, setInput] = useState('');
-  const [color, setColor] = useState('#000000');
+  const [input, setInput] = useState("");
+  const [color, setColor] = useState("#000000");
   const [fontSize, setFontSize] = useState(14);
-  const { changeInterective, changeLink, interective } =
-    useInterectiveElement();
+  const [fontStyle, setFontStyle] = useState("buran");
 
   return {
     input,
@@ -15,8 +13,7 @@ export const useCreateText = () => {
     setColor,
     fontSize,
     setFontSize,
-    interective,
-    changeInterective,
-    changeLink,
+    fontStyle,
+    setFontStyle,
   };
 };
