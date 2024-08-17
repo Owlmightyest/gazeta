@@ -1,7 +1,7 @@
 import { AllNodes } from "src/ImageView/store/model";
 import { ImageNode } from "./image";
-import { SquareNode } from "./square"
-import Konva from 'konva';;
+import { SquareNode } from "./square";
+
 import { TextNode } from "./text";
 
 export const DispatchElement: React.FC<{

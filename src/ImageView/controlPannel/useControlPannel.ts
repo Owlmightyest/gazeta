@@ -1,16 +1,10 @@
 import { useState } from "react";
-import { ChangePage, Close, Link, NodeTypes } from "../../commonTypes";
+import { NodeTypes } from "../../commonTypes";
 import { useDispatch } from "react-redux";
-import {
-  createNewButtonNode,
-  createNewImage,
-  createNewSVGNode,
-  createNewSquare,
-  createNewTextNode,
-} from "./helpers";
+import { createNewImage, createNewSquare, createNewTextNode } from "./helpers";
 import { addNode } from "../store/action";
 
-export const useControlPannel = (id: string) => {
+export const useControlPannel = () => {
   const dispatch = useDispatch();
 
   const [mode, setMode] = useState<NodeTypes>("square");

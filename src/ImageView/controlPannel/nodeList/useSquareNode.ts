@@ -1,10 +1,8 @@
 import { SquareNode } from "src/commonTypes";
 import { chanageNode } from "src/ImageView/store/action";
 import { useDispatch } from "react-redux";
-import { useNodeStore } from "src/ImageView/store/hook";
 
 export const useSquareNode = (node: SquareNode) => {
-  const { selectedName } = useNodeStore();
   const dispatch = useDispatch();
 
   const changeNodeWrapper = (node: SquareNode) => {

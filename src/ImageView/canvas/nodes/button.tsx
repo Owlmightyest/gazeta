@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Rect, Transformer, Text } from "react-konva";
+import { Rect, Transformer } from "react-konva";
 import { originWidth } from "src/CONST";
 import { AllNodes } from "src/ImageView/store/model";
 import { ButtonNode as Type } from "src/commonTypes";
@@ -33,7 +33,7 @@ export const ButtonNode: React.FC<{
   } = el;
   const shapeRef = useRef<any>();
   const trRef = useRef<any>();
-  const texR = useRef<any>();
+
   useEffect(() => {
     if (selected) {
       // we need to attach transformer manually

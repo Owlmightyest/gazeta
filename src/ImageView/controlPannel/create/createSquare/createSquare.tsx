@@ -1,8 +1,8 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Button } from "@chakra-ui/react";
+
 import { ColorInput, StringInput } from "../../shared/Inputs";
 import { useCreateSquare } from "./useCreateSquare";
-import { ChangePage, Close, Link } from "src/commonTypes";
+
 export const CreateDivNode: React.FC<{
   createSquare: (obj: {
     color: string;

@@ -1,10 +1,4 @@
-import {
-  TextNode,
-  ChangePage,
-  Close,
-  InterectiveElement,
-  Link,
-} from "src/commonTypes";
+import { TextNode } from "src/commonTypes";
 import { chanageNode } from "src/ImageView/store/action";
 import { useDispatch } from "react-redux";
 

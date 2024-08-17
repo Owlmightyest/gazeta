@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Stage, Layer } from "react-konva";
 import { useNodeStore } from "../store/hook";
 import { DispatchElement } from "./nodes";
@@ -11,7 +10,7 @@ export const Canvas: React.FC<{
   heigth: number;
   stageRef: React.MutableRefObject<any>;
 }> = ({ width, heigth, stageRef }) => {
-  const { elements, selectedNode, selectedName } = useNodeStore();
+  const { elements, selectedNode } = useNodeStore();
   const dispatch = useDispatch();
 
   const changeNodeWrapper = (n: AllNodes) => {

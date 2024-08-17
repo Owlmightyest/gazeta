@@ -1,4 +1,4 @@
-import { Box, Text, Select } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import { useControlPannel } from "./useControlPannel";
 import { NodeTypes } from "src/commonTypes";
 import { CreateImageNode } from "./create/createImage/createImage";
@@ -8,13 +8,12 @@ import { CreateTextNode } from "./create/createText/createText";
 import { ImageNodeListElement } from "./nodeList/imageNode";
 import { SquareNodeListElement } from "./nodeList/squareNode";
 import { TextNodeListElement } from "./nodeList/textNode";
-import { useDispatch } from "react-redux";
 
 const options: NodeTypes[] = ["image", "square", "text"];
 
 export const Controlls: React.FC = () => {
-  const { selectedName, elements } = useNodeStore();
-  const dispatch = useDispatch();
+  const { elements } = useNodeStore();
+
   const {
     changeMode,
     createImage,
@@ -22,7 +21,7 @@ export const Controlls: React.FC = () => {
     createText,
 
     mode,
-  } = useControlPannel(selectedName);
+  } = useControlPannel();
 
   return (
     <Box w={[600, 700, 800]}>

@@ -4,7 +4,6 @@ import { Transformer, Image } from "react-konva";
 import { originWidth } from "src/CONST";
 import { AllNodes } from "src/ImageView/store/model";
 import { ImageNode as Type } from "src/commonTypes";
-import Konva from "konva";
 
 export const ImageNode: React.FC<{
   owidth: number;

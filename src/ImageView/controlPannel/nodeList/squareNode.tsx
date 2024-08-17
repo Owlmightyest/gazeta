@@ -2,15 +2,14 @@ import { Box, Text, Stack, Input, Button } from "@chakra-ui/react";
 import { SquareNode } from "src/commonTypes";
 import { useSquareNode } from "./useSquareNode";
 import { useDispatch } from "react-redux";
-import { changeOrder, deleteNode } from "src/ImageView/store/action";
+import { deleteNode } from "src/ImageView/store/action";
 
 export const SquareNodeListElement: React.FC<{
   node: SquareNode;
   i: number;
   maxIndex: number;
-}> = ({ node, i, maxIndex }) => {
-  const { name, fill, stroke, strokeWidth, borderRadius, x, y, width, height } =
-    node;
+}> = ({ node }) => {
+  const { fill, stroke, strokeWidth, borderRadius } = node;
   const dispatch = useDispatch();
 
   const {

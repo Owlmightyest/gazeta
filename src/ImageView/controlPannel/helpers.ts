@@ -1,8 +1,5 @@
 import {
-  ChangePage,
-  Close,
   ImageNode,
-  Link,
   SquareNode,
   TextNode,
   ButtonNode,

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Switch,
-  Input,
-  Text,
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/react";
+import { Box, Input } from "@chakra-ui/react";
 
 import { useState } from "react";
 export const CreateImageNode: React.FC<{
@@ -14,7 +7,7 @@ export const CreateImageNode: React.FC<{
     bw?: boolean
   ) => Promise<void>;
 }> = ({ createImage }) => {
-  const [bw, setBw] = useState(false);
+  const [bw] = useState(false);
   return (
     <Box px={5}>
       <Input

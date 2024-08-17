@@ -1,14 +1,14 @@
 import { Box, Switch, Input, Stack, Text, Button } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { TextNode } from "src/commonTypes";
-import { chanageNode, deleteNode } from "src/ImageView/store/action";
+import { deleteNode } from "src/ImageView/store/action";
 
 import { useTextNode } from "./useTextNode";
 
 export const TextNodeListElement: React.FC<{
   node: TextNode;
   i: number;
-}> = ({ node, i }) => {
+}> = ({ node }) => {
   const { text, fill, editable, fontSize } = node;
   const dispatch = useDispatch();
 

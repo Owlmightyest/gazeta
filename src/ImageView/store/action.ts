@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction } from "@reduxjs/toolkit";
 import { prefix } from "./const";
 import { AllNodes } from "./model";
 import { IFonts } from "src/commonTypes";

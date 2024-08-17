@@ -1,9 +1,7 @@
-import { Box, Button, Input, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import { useCreateText } from "./useCreateText";
 import { ColorInput, StringInput } from "../../shared/Inputs";
 
-import { ChangePage, Close, Link } from "src/commonTypes";
-import { useNodeStore } from "src/ImageView/store/hook";
 export const CreateTextNode: React.FC<{
   createText: ({
     color,
@@ -18,17 +16,8 @@ export const CreateTextNode: React.FC<{
     fontStyle: string;
   }) => void;
 }> = ({ createText }) => {
-  const {
-    color,
-    fontSize,
-    input,
-    setColor,
-    setFontSize,
-    setInput,
-    fontStyle,
-    setFontStyle,
-  } = useCreateText();
-  const { fonts } = useNodeStore();
+  const { color, fontSize, input, setColor, setFontSize, setInput, fontStyle } =
+    useCreateText();
 
   return (
     <Box px={5}>
